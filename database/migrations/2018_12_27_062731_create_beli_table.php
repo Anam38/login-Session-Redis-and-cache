@@ -16,7 +16,6 @@ class CreateBeliTable extends Migration
         Schema::create('beli', function (Blueprint $table) {
             $table->increments('id');
             $table->String('kd_barang');
-            $table->String('nama');
             $table->integer('stok');
             $table->timestamps();
         });

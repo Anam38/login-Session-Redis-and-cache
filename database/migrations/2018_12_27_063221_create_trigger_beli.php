@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTrigger extends Migration
+class CreateTriggerBeli extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateTrigger extends Migration
      */
     public function up()
     {
-        // DB::unprepared(
-        //   'CREATE TRIGGER beli_barang AFTER INSERT ON `beli` FOR EACH ROW
-        //           BEGIN
-        //              UPDATE `stok` SET (`stok`, `created_at`, `updated_at`) VALUES (NEW.stok, now(), null) WHERE `kd_barang` = NOW.kd_barang;
-        //     END'
-        //   );
+        DB::unprepared(
+          'CREATE TRIGGER beli_barang AFTER INSERT ON `beli` FOR EACH ROW
+                  BEGIN
+                     UPDATE `stok` SET stok = stok + NEW.stok
+                  WHERE kd_barang = NEW.kd_barang;
+            END'
+          );
     }
 
     /**
